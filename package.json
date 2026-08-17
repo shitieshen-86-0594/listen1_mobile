@@ -64,4 +64,10 @@
   "jest": {
     "preset": "react-native"
   }
+  "react-native-track-player": "^4.0.0",      // 高音质播放核心
+  "react-native-ffmpeg": "^0.4.0",             // 核心：用于真实 BPM、动态范围解析，以及格式转换
+  "react-native-fs": "^2.20.0",                // 用于下载歌曲并保存到本地
+  "@react-native-community/blur": "^4.4.0",    // 必须：实现原图的毛玻璃效果
+  "react-native-reanimated": "^3.8.1",         // 必须：实现 iOS 丝滑转场动画
+  "react-native-svg": "^15.2.0"                // 必须：画出原图左侧的罗盘刻度图案
 }
