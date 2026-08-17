@@ -15,7 +15,6 @@ import com.facebook.soloader.SoLoader;
 import com.facebook.react.bridge.ReadableNativeArray;
 import com.facebook.react.bridge.ReadableNativeMap;
 
-// 👇 这一步是灵魂：把你刚刚建的引擎包引入到这里
 import com.listen1.AudioAnalyzerPackage; 
 
 import java.util.Arrays;
@@ -38,7 +37,6 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new RNGestureHandlerPackage(),
             new ReactVideoPackage(),
-            // 👇 在最后一行注册我们定制的 BPM 引擎！
             new AudioAnalyzerPackage() 
       );
     }
