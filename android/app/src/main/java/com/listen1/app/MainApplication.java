@@ -15,6 +15,9 @@ import com.facebook.soloader.SoLoader;
 import com.facebook.react.bridge.ReadableNativeArray;
 import com.facebook.react.bridge.ReadableNativeMap;
 
+// 👇 这一步是灵魂：把你刚刚建的引擎包引入到这里
+import com.listen1.AudioAnalyzerPackage; 
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +37,9 @@ public class MainApplication extends Application implements ReactApplication {
             new MusicControl(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage(),
-            new ReactVideoPackage()
+            new ReactVideoPackage(),
+            // 👇 在最后一行注册我们定制的 BPM 引擎！
+            new AudioAnalyzerPackage() 
       );
     }
 
@@ -54,8 +59,6 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
 
-    // resolve fetch result with same header name is merged
-    // https://github.com/facebook/react-native/issues/21795#issuecomment-430384534
     ReadableNativeArray.setUseNativeAccessor(true);
     ReadableNativeMap.setUseNativeAccessor(true);
   }
