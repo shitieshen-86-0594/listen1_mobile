@@ -14,7 +14,9 @@ jobs:
           node-version: '18'
       - name: Install npm dependencies
         run: |
-          # 关键修复：加上 --legacy-peer-deps 忽略依赖冲突
+          # 1. 强制切换国内淘宝镜像源（下载速度快100倍）
+          npm config set registry https://registry.npmmirror.com
+          # 2. 忽略老旧的依赖冲突
           npm install --legacy-peer-deps
   build-android:
     needs: install-and-test
@@ -27,7 +29,8 @@ jobs:
           node-version: '18'
       - name: Install npm dependencies
         run: |
-          # 关键修复：加上 --legacy-peer-deps 忽略依赖冲突
+          # 同样，在编译阶段也全局换源
+          npm config set registry https://registry.npmmirror.com
           npm install --legacy-peer-deps
       - name: Build Android Release
         run: |
