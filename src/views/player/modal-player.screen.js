@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+import { NativeModules } from 'react-native';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
