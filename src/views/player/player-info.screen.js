@@ -1,84 +1,29 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import styled, { withTheme } from 'styled-components';
-import TextTicker from 'react-native-text-ticker';
-import { colors } from '../../config/colors';
+import { View, Text, StyleSheet } from 'react-native';
+import { BlurView } from '@react-native-community/blur';
 
-const ControlButton = styled.TouchableOpacity`
-  width: 40;
-  height: 40;
-  flex: 0 40px;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ModalSongInfo = styled.View`
-  margin-top: 20;
-  flex: 1;
-  flex-direction: row;
-  margin-left: 30;
-  margin-right: 30;
-`;
-const Side = styled.View`
-  flex: 0 40px;
-`;
-const Main = styled.View`
-  flex: 1;
-  flex-direction: column;
-`;
-const ModalSongTitle = styled.View`
-  margin-top: 0;
-  margin-bottom: 0;
-  color: ${(props) => props.theme.primaryColor};
-  flex: 0 40px;
-`;
-const ModalSongArtist = styled.Text`
-  font-size: 16;
-  color: ${(props) => props.theme.secondaryColor};
-`;
-
-class PlayerInfo extends React.PureComponent {
-  props: {
-    nowplayingTrack: Object,
-    isFav: Boolean,
-    onFav: Function,
-    theme: Object,
-  };
-
-  render() {
-    const { nowplayingTrack, isFav } = this.props;
-    const noTrack = nowplayingTrack === null;
-
-    // console.log(`render ${this.constructor.name}`);
-
-    return (
-      <ModalSongInfo>
-        <Main>
-          <ModalSongTitle>
-            <TextTicker
-              style={{ fontSize: 24, color: this.props.theme.primaryColor }}
-              repeatSpacer={100}
-              marqueeDelay={1000}
-            >
-              {noTrack ? 'Listen1' : nowplayingTrack.title}
-            </TextTicker>
-          </ModalSongTitle>
-          <ModalSongArtist>
-            {noTrack ? 'Artist' : nowplayingTrack.artist}
-          </ModalSongArtist>
-        </Main>
-        <Side>
-          <ControlButton onPress={this.props.onFav}>
-            <Icon
-              name={isFav ? 'favorite' : 'favorite-border'}
-              size={30}
-              color={isFav ? colors.heartRed : this.props.theme.secondaryColor}
-            />
-          </ControlButton>
-        </Side>
-      </ModalSongInfo>
-    );
-  }
+export default function PlayerInfoScreen({ title, artist, bpm = "87.00", stats }) {
+  return (
+    <BlurView style={styles.glassContainer} blurType="dark" blurAmount={15} reducedTransparencyFallbackColor="black">
+      <Text style={styles.title}>{title || "worry (Slowed)"}</Text>
+      <Text style={styles.artist}>By {artist || "LONOWN / Riserayss"}</Text>
+      <View style={{ flexDirection: 'row', marginTop: 20 }}>
+        <View style={{ width: 80 }}><Text style={styles.metricLabel}>BPM</Text><Text style={styles.metricVal}>{bpm}</Text></View>
+        <View style={{ width: 100 }}><Text style={styles.metricLabel}>Genre</Text><Text style={styles.metricVal}>Angelcore</Text></View>
+      </View>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 24 }}>
+        <View style={{ width: 100, marginBottom: 8 }}><Text style={styles.metricLabel}>Dynamic range</Text><Text style={styles.metricVal}>{stats?.dynamicRange || "3.8"} dB</Text></View>
+        <View style={{ width: 100, marginBottom: 8 }}><Text style={styles.metricLabel}>Loudness</Text><Text style={styles.metricVal}>{stats?.loudness || "-6.6"} LUFS</Text></View>
+        <View style={{ width: 100, marginBottom: 8 }}><Text style={styles.metricLabel}>Sample rate</Text><Text style={styles.metricVal}>48.0 kHz</Text></View>
+        <View style={{ width: 100, marginBottom: 8 }}><Text style={styles.metricLabel}>Bitrate</Text><Text style={styles.metricVal}>1641 kbps</Text></View>
+      </View>
+    </BlurView>
+  );
 }
-
-export default withTheme(PlayerInfo);
+const styles = StyleSheet.create({
+  glassContainer: { padding: 20, borderRadius: 16, overflow: 'hidden', backgroundColor: 'rgba(0,0,0,0.4)', height: '70%', justifyContent: 'center', marginRight: 20 },
+  title: { color: '#00BCD4', fontSize: 28, fontWeight: 'bold' },
+  artist: { color: '#FFFFFF', fontSize: 14, marginTop: 4 },
+  metricLabel: { color: '#4A5E62', fontSize: 10 },
+  metricVal: { color: 'white', fontSize: 16 },
+});
