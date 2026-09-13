@@ -4,7 +4,7 @@ on:
     branches:
       - master
 jobs:
-  install-and-test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,13 +14,8 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: |
-          npm config set registry https://registry.npmmirror.com
-          npm install --legacy-peer-deps
-  build-android:
-    needs: install-and-test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+          npm cache clean --force
+          npm install --legacy-peer-deps --no-audit --no-fund
       - name: Build Android Release
         run: |
           cd android && chmod +x ./gradlew && ./gradlew assembleRelease
