@@ -1,7 +1,6 @@
 package com.listen1.app;
 
 import android.app.Application;
-
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.tanguyantoine.react.MusicControl;
@@ -14,8 +13,6 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.react.bridge.ReadableNativeArray;
 import com.facebook.react.bridge.ReadableNativeMap;
-
-import com.listen1.AudioAnalyzerPackage; 
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,8 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
             new MusicControl(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage(),
-            new ReactVideoPackage(),
-            new AudioAnalyzerPackage() 
+            new ReactVideoPackage()
       );
     }
 
@@ -55,8 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
-
+    SoLoader.init(this, false);
     ReadableNativeArray.setUseNativeAccessor(true);
     ReadableNativeMap.setUseNativeAccessor(true);
   }
