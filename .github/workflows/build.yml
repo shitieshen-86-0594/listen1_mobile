@@ -12,25 +12,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Install dependencies via China Mirror
+      - name: Install dependencies
         run: |
-          # 1. 强制清理 npm 缓存（解决死锁）
-          npm cache clean --force
-          # 2. 强制走国内镜像安装并忽略旧版依赖冲突
-          npm install --registry=https://registry.npmmirror.com --legacy-peer-deps
+          npm config set registry https://registry.npmmirror.com
+          npm install --legacy-peer-deps
   build-android:
     needs: install-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      - name: Install dependencies via China Mirror
-        run: |
-          npm cache clean --force
-          npm install --registry=https://registry.npmmirror.com --legacy-peer-deps
       - name: Build Android Release
         run: |
           cd android && chmod +x ./gradlew && ./gradlew assembleRelease
